@@ -1,0 +1,57 @@
+data:
+  path: 1.xlsx  # 原始数据的路径
+  outpath: result.xlsx # 输出结果的路径
+  margins: True # 是否生成汇总
+  round: 2 # 保留小数位
+
+cross: # 交叉表的行、列
+    columns: # 列
+      - Q2_result 
+    indexs: # 行
+      # index 数据列名
+      # value 计算的列名
+      # aggfunc 聚合的方法
+      # type multi：多选题
+      -
+        index: Q2
+        value: rid
+        aggfunc: count
+      -
+        index: Q2_result
+        value: rid
+        aggfunc: count
+
+# name 列名
+# title 分组名
+# process 计算
+# interval_map 区间映射
+# list_map  列表映射
+# map 值映射
+# lable 值对应的标签名 map
+# lables 值对应的标签名 数组 生成key为数字(1、2 ... n)的 map
+columns: # 交叉纬度的定义
+  -
+    name: Q2_result
+    title: XXXXXXX
+    process: 2020 - row['Q3__1__open'] + (6 - row['Q3__2__open']) / 12
+    interval_map:
+      '[-9000,3)': 1
+      '[3, 8)': 2
+      '[8, 15)': 3
+      '[15,9000)': 4
+    lables: ['XX', 'XXXX', 'XXX', 'XXXXXX']
+  -
+    name: Q4_result
+    title: XXXX
+    process: row['Q4']
+    list_map:
+      '1,6': 1
+      '2,4': 2
+      '3,7': 3
+      '5': 4
+      '8,9': 5
+    lables: ['XX', 'XXXX', 'XXXXX', 'XXXXX', 'XXXXXXX']
+  -
+    name: Q2
+    title: Q2 XXXX
+    lables: ['X', 'XXX', 'XXXX']
